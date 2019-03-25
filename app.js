@@ -9,6 +9,7 @@ const passport = require('passport');
 
 const authRoutes = require('./routes/auth.routes');
 const productRoutes = require('./routes/product.routes');
+const orderRoutes = require('./routes/order.routes');
 
 require('./configs/db.config');
 const session = require('./configs/session.config');
@@ -30,6 +31,7 @@ app.use(passport.session());
 
 app.use('/', authRoutes);
 app.use('/product', productRoutes);
+app.use('/order', orderRoutes);
 
 app.use((req, res, next) => {
   res.locals.session = req.user;
