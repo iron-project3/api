@@ -7,7 +7,8 @@ const Ebay = require("ebay-node-api");
 
 
 module.exports.list = (req, res, next) => {
-  const search = req.query.product || 'imac';
+  const search = req.query.search || 'imac';
+  console.log('query', req.query)
 
       let ebay = new Ebay({
           clientID: process.env.API_KEY,
