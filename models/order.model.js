@@ -5,10 +5,13 @@ const orderSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
-  product: {
+  product: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Product'
-  }, 
+  }],
+  state: {
+    type: String
+  }
 }, {timestamps: true});
 
 const Order = mongoose.model("Order", orderSchema);

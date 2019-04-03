@@ -25,7 +25,15 @@ module.exports.list = (req, res, next) => {
 }
 
 module.exports.create = (req, res, next) => {
-  const product = new Product(req.body);
+  const item = req.body;
+  console.log(item.galleryURL);
+  const product = new Product({
+    name: item.title,
+    price: item.sellingStatus[0].currentPrice[0].__value__,
+    description: item.description,
+    image: item.galleryURL[0],
+    category: item.primaryCategory[0].categoryId[0]
+  });
 
   product.save()
     .then(product => res.status(201).json(product))
