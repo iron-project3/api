@@ -26,7 +26,7 @@ module.exports.list = (req, res, next) => {
 
 module.exports.create = (req, res, next) => {
   const item = req.body;
-  console.log(item.galleryURL);
+  // console.log(item.galleryURL);
   const product = new Product({
     name: item.title,
     price: item.sellingStatus[0].currentPrice[0].__value__,
