@@ -40,6 +40,15 @@ module.exports.create = (req, res, next) => {
     .catch(next);
 }
 
+module.exports.find = (req, res, next) => {
+  const search = req.query.search
+  // console.log('query', req.params)
+
+  Product.findById(search)
+    .then(product => res.json(product))
+    .catch(next)
+}
+
 module.exports.delete = (req, res, next) => {
   Product.findByIdAndDelete(req.params.id)
     .then(product => {

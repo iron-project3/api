@@ -17,7 +17,7 @@ module.exports.createOrder = (req, res, next) => {
 }
 
 module.exports.getOrders = (req, res, next) => {
-  console.info('USER ID => ', req.params.id)
+  // console.info('USER ID => ', req.params.id)
   Order.find({user: req.params.id})
     .then(orders => res.json(orders))
     .catch(next)
