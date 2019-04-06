@@ -10,7 +10,8 @@ const orderSchema = new mongoose.Schema({
     ref: 'Product'
   }],
   state: {
-    type: String
+    type: String,
+    default: 'cart'
   }
 }, {timestamps: true});
 
