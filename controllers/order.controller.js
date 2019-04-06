@@ -42,15 +42,21 @@ module.exports.getCart = (req, res, next) => {
 //5ca87284bef68c3a4349f84a
 
 module.exports.deleteProduct = (req, res, next) => {
+  const search = req.params.id
+  console.log("QUERYYYYYYY:", search);
+
   Order.findOneAndUpdate(
     { user: req.user.id, state: 'cart' },
-    {  $pullAll: { product: ["5ca87b4076a0d63fba2399bf"] }}, 
-    { new: true })
+    { $pull: { product: search }}, 
+    { new: true }
+  )
     .then(order => {
       res.status(201).json(order)
     })
     .catch(next)
 }
+
+
 
 // populate para pintar ordenes en carrito 
 
