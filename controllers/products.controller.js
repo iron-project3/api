@@ -1,7 +1,7 @@
 const createError = require('http-errors');
-const api_key = process.env.API_KEY;
-const api_secret = process.env.API_SECRET;
-const sem3 = require("semantics3-node")(api_key,api_secret);
+// const api_key = process.env.API_KEY;
+// const api_secret = process.env.API_SECRET;
+// const sem3 = require("semantics3-node")(api_key,api_secret);
 const Product = require('../models/product.model');
 const Ebay = require("ebay-node-api");
 
@@ -23,6 +23,21 @@ module.exports.list = (req, res, next) => {
      // http://localhost:3002/product?search=apple  
 
 }
+
+module.exports.suggestions = (req, res, next) => {
+  const search = req.query.search || 1018;
+
+  let ebay = new Ebay({
+    clientID: process.env.API_KEY,
+    limit: 4
+});
+  ebay.findItemsByCategory(search).then((data) => {
+      res.json(data[0].searchResult[0].item.map(({ title, galleryURL, sellingStatus, primaryCategory, productId}) => ({title, galleryURL, sellingStatus, primaryCategory, productId})));
+  }, (error) => {
+      console.log(error);
+  });
+  }
+  
 
 module.exports.create = (req, res, next) => {
   const item = req.body;
@@ -53,7 +68,7 @@ module.exports.delete = (req, res, next) => {
   Product.findByIdAndDelete(req.params.id)
     .then(product => {
       if (!product) {
-        throw createError(404, 'Column not found')
+        throw createError(404, 'product not found')
       } else {
         res.status(204).json()
       }

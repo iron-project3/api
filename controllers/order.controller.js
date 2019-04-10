@@ -56,6 +56,17 @@ module.exports.deleteProduct = (req, res, next) => {
     .catch(next)
 }
 
+module.exports.deleteOrder = (req, res, next) =>{
+  const search = req.params.id;
+  console.log("user" , search)
+
+  Order.findOneAndDelete({ user: req.user.id, state: 'cart' })
+     .then(order => {
+      res.status(201).json(order)
+    })
+    .catch(next)
+}
+
 
 
 // populate para pintar ordenes en carrito 

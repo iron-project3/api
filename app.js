@@ -17,6 +17,7 @@ const cors = require('./configs/cors.config');
 require('./configs/passport.config');
 
 const app = express();
+// const stripe = require("stripe")("sk_test_FgvkvfyvMglsILVBZu5cLYSD00MPcQTXmS");
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -27,6 +28,21 @@ app.use(cors);
 app.use(session);
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(require("body-parser").text());
+// app.post("/charge", async (req, res) => {
+//   try {
+//     let {status} = await stripe.charges.create({
+//       amount: 2000,
+//       currency: "usd",
+//       description: "An example charge",
+//       source: req.body
+//     });
+
+//     res.json({status});
+//   } catch (err) {
+//     res.status(500).end();
+//   }
+// });
 
 
 app.use('/', authRoutes);
